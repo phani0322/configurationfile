@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="f6ffc463-c8a5-4993-b9f2-516b9315aad4" basePath="${http.basepath}" >
+		<http:listener-connection host="${http.host}" port="${http.port}" />
+	</http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="a398449c-2627-4c70-af06-8870d86bbad5" file="${env}.yaml" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="970a138b-deb3-48cc-ad78-cff31b3b98e9" file="${env}.yaml" key="123456789" >
+		<secure-properties:encrypt algorithm="Blowfish" />
+	</secure-properties:config>
+	<flow name="configurationfileFlow" doc:id="d008a6cc-7e56-4638-96ed-23905037e6cc" >
+		<http:listener doc:name="Listener" doc:id="fa0e3bc0-f0b0-4519-9ca1-d89d48901e5a" config-ref="HTTP_Listener_config" path="${http.path}"/>
+		<logger level="INFO" doc:name="Logger" doc:id="5093a358-e38d-4060-af09-b9f0ec00a64e" message="used blowfish algoritham password is 123456789"/>
+		<logger level="INFO" doc:name="Logger" doc:id="510bd36e-4e3f-48c8-8bce-14f49a2581b6" message="******************************** Hello ********************************************  DBName: ${db.username}"/>
+		<logger level="INFO" doc:name="Logger" doc:id="56ca3a1a-03f0-4d65-a71f-d75bbe149946" message="the database password is ${secure::db.passwordC}"/>
+	</flow>
+</mule>

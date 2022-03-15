@@ -1,0 +1,9 @@
+http:
+  host: "localhost"
+  port: "8081"
+  basepath: "v1"
+  path: "demo"
+db:
+  host: "localhost"
+  username: "Sai"
+  passwordC: "![1QRNdiiC3T1sSlL9PwP3lg==]"
